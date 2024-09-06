@@ -145,6 +145,122 @@ public class Suscripcion {
         }
     }
 
+    public static void pagarSuscripcion(Gimnasio gimnasio1){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Ingrese el ID del miembro el cual desea pagar su suscripción: ");
+        int idMiembro;
+        Miembro miembroSub;
+
+        boolean existe1;
+        boolean suscripto1 = false;
+        boolean pagado1 = false;
+        do {
+            idMiembro = sc.nextInt();
+            miembroSub = Miembro.searchMiembroInList(gimnasio1.getListaMiembros(),idMiembro);
+
+            // Este parrafo chequea si el miembro existe
+            if (miembroSub == null){
+                System.out.println("El miembro no existe");
+                existe1 = false;
+            } else {
+                existe1 = true;
+            }
+
+            // Esto parrafo chequea si el miembro ya está suscripto
+            if ((existe1)&&(miembroSub.getEstadoSuscripcion() == null)) {
+                System.out.println("Este miembro no cuenta con una suscripción");
+                suscripto1 = true;
+            } else if ((existe1)&&(miembroSub.getEstadoSuscripcion() != null)) {
+                suscripto1 = false;
+            }
+
+            // Este parrafo chequea si la suscripción del miembro ya está pagada
+            if ((existe1) && (miembroSub.getEstadoSuscripcion().isEstadoSuscripcion())){
+                System.out.println("Este miembro ya ha pagado su suscripción");
+                pagado1 = true;
+            } else if ((existe1) && (!miembroSub.getEstadoSuscripcion().isEstadoSuscripcion())) {
+                pagado1 = false;
+            }
+
+            if ((!existe1) || (suscripto1) || (pagado1)) {
+                if (Gimnasio.consultaOperacion()) { return; }
+            }
+        }while ((!existe1)||(suscripto1) || (pagado1));
+
+        Suscripcion auxSuscripcion = miembroSub.getEstadoSuscripcion();
+        auxSuscripcion.setEstadoSuscripcion(true);
+        miembroSub.setEstadoSuscripcion(auxSuscripcion);
+
+        // ACTUALIZADOR DE MIEMBRO
+        int finalIdMiembro = idMiembro;
+        gimnasio1.listaMiembros.removeIf(miembro -> miembro.getIdMiembro() == finalIdMiembro);
+        gimnasio1.listaMiembros.add(miembroSub);
+
+        for (Clase clase : gimnasio1.listaClases){
+            for (Miembro miembro : clase.listaMiembros){
+                if (miembro.getIdMiembro() == miembroSub.getIdMiembro()){
+                    clase.listaMiembros.remove(miembro);
+                    clase.listaMiembros.add(miembroSub);
+                }
+            }
+        }
+    }
+
+    public static void cancelarSuscripcion(Gimnasio gimnasio1){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Ingrese el ID del miembro el cual desea cancelar la suscripción: ");
+        int idMiembro;
+        Miembro miembroSub;
+
+        boolean existe1;
+        boolean suscripto1 = false;
+        do {
+            idMiembro = sc.nextInt();
+            miembroSub = Miembro.searchMiembroInList(gimnasio1.getListaMiembros(),idMiembro);
+
+            // Este parrafo chequea si el miembro existe
+            if (miembroSub == null){
+                System.out.println("El miembro no existe");
+                existe1 = false;
+            } else {
+                existe1 = true;
+            }
+
+            // Esto parrafo chequea si el miembro ya está suscripto
+            if ((existe1)&&(miembroSub.getEstadoSuscripcion() == null)) {
+                System.out.println("Este miembro no cuenta con una suscripción");
+                suscripto1 = true;
+            } else if ((existe1)&&(miembroSub.getEstadoSuscripcion() != null)) {
+                suscripto1 = false;
+            }
+
+            if ((!existe1) || (suscripto1)) {
+                if (Gimnasio.consultaOperacion()) { return; }
+            }
+        }while ((!existe1)||(suscripto1));
+
+        miembroSub.setEstadoSuscripcion(null);
+
+
+        int finalIdMiembro = idMiembro;
+        gimnasio1.listaMiembros.removeIf(miembro -> miembro.getIdMiembro() == finalIdMiembro);
+        gimnasio1.listaMiembros.add(miembroSub);
+
+        for (Clase clase : gimnasio1.listaClases){
+            for (Miembro miembro : clase.listaMiembros){
+                if (miembro.getIdMiembro() == miembroSub.getIdMiembro()){
+                    clase.listaMiembros.remove(miembro);
+                    clase.listaMiembros.add(miembroSub);
+                }
+            }
+        }
+
+        Miembro finalMiembroSub = miembroSub;
+        gimnasio1.listaReserva.removeIf(reserva -> reserva.getMiembroReserva().getIdMiembro() == finalMiembroSub.getIdMiembro());
+    }
+
     public int getIdSuscripcion() {
         return idSuscripcion;
     }

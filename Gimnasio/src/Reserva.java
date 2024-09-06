@@ -37,6 +37,8 @@ public class Reserva {
         int idMiembro;
         Miembro miembroReserva;
         boolean miembroExistente;
+        boolean miembroSuscripto = false;
+        boolean miembroSubPagada = false;
         System.out.println("Ingrese el ID del miembro que desea reservar: ");
         do {
             idMiembro = sc.nextInt();
@@ -48,7 +50,28 @@ public class Reserva {
             } else {
                 miembroExistente = true;
             }
-        }while (!miembroExistente);
+
+            if ((miembroExistente) && (miembroReserva.getEstadoSuscripcion() == null)) {
+                System.out.println("El miembro no está suscripto");
+                if (Gimnasio.consultaOperacion()) { return null; }
+                miembroSuscripto = true;
+            } else if ((miembroExistente) && (miembroReserva.getEstadoSuscripcion() != null)) {
+                miembroSuscripto = false;
+            }
+
+            if ((miembroExistente) && (miembroSuscripto) && (!miembroReserva.getEstadoSuscripcion().isEstadoSuscripcion())) {
+                System.out.println("El miembro no ha pagado su suscripción");
+                if (Gimnasio.consultaOperacion()) { return null; }
+                miembroSubPagada = true;
+            } else if ((miembroExistente) && (miembroSuscripto) && (miembroReserva.getEstadoSuscripcion().isEstadoSuscripcion())) {
+                miembroSubPagada = false;
+            }
+
+            if ((!miembroExistente) || (miembroSuscripto) || (miembroSubPagada)) {
+                if (Gimnasio.consultaOperacion()) { return null; }
+            }
+
+        }while ((!miembroExistente) || (miembroSuscripto) || (miembroSubPagada));
 
         // Este sistema chequea si la clase seleccionada ya esta al tope de miembros, y si el miembro ya se encuentra en inscripto en la clase
         System.out.println("Ingrese el ID de la clase que desea reservar: ");
