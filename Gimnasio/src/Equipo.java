@@ -27,19 +27,20 @@ public class Equipo {
                 System.out.println("ID ya utilizada, ingrese nuevamente: ");
                 idEquipo = sc.nextInt();
             } else {
-                idsUsadas.add(idEquipo);
                 break;
             }
         } while (existe);
 
-    System.out.println("Ingrese el tipo del equipo: ");
-    String tipoEquipo = sc.nextLine();
+        System.out.println("Ingrese el tipo del equipo: ");
+        String tipoEquipo = sc.nextLine();
 
-    System.out.println("Ingrese el estado del equipo: ");
-    String estadoEquipo = sc.nextLine();
+        System.out.println("Ingrese el estado del equipo: ");
+        String estadoEquipo = sc.nextLine();
 
-    System.out.println();
-    return new Equipo(idEquipo, tipoEquipo, estadoEquipo);
+        System.out.println();
+        idsUsadas.add(idEquipo);
+
+        return new Equipo(idEquipo, tipoEquipo, estadoEquipo);
     }
 
     public static Area asignarArea(Equipo equipo1, Area area1) {

@@ -37,7 +37,6 @@ public class Clase {
                 if (Gimnasio.consultaOperacion()) { return null; }
                 idClase = sc.nextInt();
             } else {
-                idsUsadas.add(idClase);
                 break;
             }
         } while (existe);
@@ -100,7 +99,7 @@ public class Clase {
         entrenadorClase.historialEntrenamientos.add(clase1);
         gimnasio1.listaEntrenadores.add(entrenadorClase);
         gimnasio1.listaClases.add(clase1);
-
+        idsUsadas.add(idClase);
         // Retorna el objeto Clase
         System.out.println();
         return clase1;
@@ -137,7 +136,7 @@ public class Clase {
         deleteClase(gimnasio, idClase);
 
         // Elimina la clase correspondiente del historial de los entrenadores del gimnasio
-        ArrayList<Entrenador> listaEntrenadores = new ArrayList<>();
+        ArrayList<Entrenador> listaEntrenadores;
         listaEntrenadores = gimnasio.getListaEntrenadores();
         for (Entrenador entrenador : listaEntrenadores) {
             int finalIdClase = idClase;
@@ -145,7 +144,8 @@ public class Clase {
         }
         gimnasio.setListaEntrenadores(listaEntrenadores);
 
-
+        int finalIdClase = idClase;
+        idsUsadas.removeIf(e -> e == finalIdClase);
     }
 
     public static void deleteClase(Gimnasio gimnasio1, int idClase){

@@ -57,7 +57,6 @@ public class Entrenador {
                 if (Gimnasio.consultaOperacion()) { return null; }
                 idEntrenador = sc1.nextInt();
             } else {
-                idsUsadas.add(idEntrenador);
                 break;
             }
         } while (existe);
@@ -109,6 +108,7 @@ public class Entrenador {
 
 
         Entrenador entrendador1 = new Entrenador(nombreEntrenador1,apellidoEntrenador1,idEntrenador,especialidadEntrenador1,horarioEntrada1,horarioSalida1,diasDisp,new ArrayList<>());
+        idsUsadas.add(idEntrenador);
 
         gimnasio1.listaEntrenadores.add(entrendador1);
         return entrendador1;

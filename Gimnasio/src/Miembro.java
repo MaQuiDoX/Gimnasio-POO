@@ -60,7 +60,6 @@ public class Miembro {
                 if (Gimnasio.consultaOperacion()) { return null; }
                 idMiembro1 = sc.nextInt();
             } else {
-                idsUsadas.add(idMiembro1);
                 break;
             }
         } while (existe);
@@ -94,6 +93,7 @@ public class Miembro {
 
         Miembro miembro1 = new Miembro(nombreMiembro1,apellidoMiembro1,idMiembro1,nroDocumento1,email1,fechaNacimiento1,fechaInscripcion1,tipoMembresia1,estadoSuscripcion1,condicion1);
         System.out.println();
+        idsUsadas.add(idMiembro1);
 
         gimnasio1.listaMiembros.add(miembro1);
         return miembro1;

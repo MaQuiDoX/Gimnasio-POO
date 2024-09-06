@@ -29,7 +29,6 @@ public class Reserva {
                 if (Gimnasio.consultaOperacion()) { return null; }
                 idReserva = sc.nextInt();
             } else {
-                idsUsadas.add(idReserva);
                 break;
             }
         } while (existe);
@@ -97,13 +96,62 @@ public class Reserva {
         deleteClase(gimnasio1,idClase);
         claseReserva.listaMiembros.add(miembroReserva);
         gimnasio1.listaClases.add(claseReserva);
+        idsUsadas.add(idReserva);
 
         System.out.println();
         return new Reserva(idReserva, miembroReserva, claseReserva);
     }
 
+    public static void cancelarReserva(Gimnasio gimnasio) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Ingrese el ID de la reserva que desea cancelar:");
+        int idReserva = sc.nextInt();
+
+        // Comprueba que la reserva dada por ID exista en el gimnasio.
+        Reserva reservaBorrar = searchReservaInList(gimnasio.getListaReserva(), idReserva);
+        do {
+            if (reservaBorrar == null) {
+                System.out.println("Esta reserva no existe");
+                if (Gimnasio.consultaOperacion()) { return; }
+                idReserva = sc.nextInt();
+                reservaBorrar = searchReservaInList(gimnasio.getListaReserva(), idReserva);
+            } else {
+                break;
+            }
+        } while (reservaBorrar == null);
+
+        int idMiembro = reservaBorrar.getMiembroReserva().getIdMiembro();
+
+        ArrayList<Clase> listaClase = new ArrayList<>();
+        listaClase = gimnasio.getListaClases();
+        for (Clase clase : listaClase) {
+            clase.listaMiembros.removeIf(miembro -> miembro.getIdMiembro() == idMiembro);
+        }
+
+        int finalIdReserva = idReserva;
+        idsUsadas.removeIf(e -> e == finalIdReserva);
+        gimnasio.setListaClases(listaClase);
+
+        // Elimina la reserva de la lista del gimnasio
+        deleteReserva(gimnasio, idReserva);
+
+    }
+
+    public static Reserva searchReservaInList(ArrayList<Reserva> gimnasio, int idReserva){
+        // A partir de una ID dada, recorre el ArrayList donde se encuentran las reservas registradas en el gimnasio, la devuelve. En caso contrario retorna un null
+        for (Reserva reserva : gimnasio){
+            if (reserva.getIdReserva() == idReserva){
+                return reserva;
+            }
+        } return null;
+    }
+
     public static void deleteClase(Gimnasio gimnasio1, int idClase) {
         gimnasio1.listaClases.removeIf(clase -> clase.getIdClase() == idClase);
+    }
+
+    public static void deleteReserva(Gimnasio gimnasio1, int idReserva) {
+        gimnasio1.listaReserva.removeIf(reserva -> reserva.getIdReserva() == idReserva);
     }
 
     public int getIdReserva() {
