@@ -43,8 +43,14 @@ public class Equipo {
         return new Equipo(idEquipo, tipoEquipo, estadoEquipo);
     }
 
-    public static Area asignarArea(Equipo equipo1, Area area1) {
+    public static Area asignarArea(Equipo equipo1, Area area1, Gimnasio gimnasio1) {
+        for (Area area : gimnasio1.listaAreas){
+            gimnasio1.listaAreas.removeIf(area -> area.getIdArea() == area1.getIdArea() );
+        }
+
         area1.listaEquipo.add(equipo1);
+        gimnasio1.listaAreas.add(area1);
+
         return area1;
     }
 

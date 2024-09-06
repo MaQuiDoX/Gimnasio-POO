@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        Gimnasio gimnasio1 = new Gimnasio("Coca Gaston","Rodriguez Pena",1123,1134,"1231231123",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+        Gimnasio gimnasio1 = new Gimnasio("Coca Gaston","Rodriguez Pena",1123,1134,"1231231123",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
 
         //PRUEBA DE REGISTRO DE MIEMBRO
         //Miembro memb1 = Miembro.registrarMiembro(gimnasio1);
@@ -51,16 +51,20 @@ public class Main {
         //gimnasio1.listaMiembros.add(memb2);
         gimnasio1.listaEntrenadores.add(ent1);
 
-        Gimnasio.obtenerListaEmpleados(gimnasio1);
+        Area area1 = Area.registrarArea(gimnasio1);
+
+        //Gimnasio.obtenerListaEmpleados(gimnasio1);
         Clase clase = Clase.programarClase(gimnasio1);
-        Gimnasio.obtenerListaEmpleados(gimnasio1);
+        Clase clase2 = Clase.programarClase(gimnasio1);
+
+        //Gimnasio.obtenerListaEmpleados(gimnasio1);
 
 
 
         //Clase.cancelarClase(gimnasio1);
         //Gimnasio.obtenerListaEmpleados(gimnasio1);
 
-        Reserva reserva1 = Reserva.hacerReserva(gimnasio1);
+        //Reserva reserva1 = Reserva.hacerReserva(gimnasio1);
         //Reserva reserva2 = Reserva.hacerReserva(gimnasio1);
 
         //Gimnasio.obtenerListaEmpleados(gimnasio1);

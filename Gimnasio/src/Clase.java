@@ -1,3 +1,4 @@
+import javax.naming.spi.ResolveResult;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -78,6 +79,26 @@ public class Clase {
             }
         } while (Integer.toString(fechaClase).length() != 8);
 
+        System.out.println("Ingrese el ID del area a la cual desea asignar la clase: ");
+        int idArea = sc.nextInt();
+
+        Area areaClase = Area.searchAreaInList(gimnasio1.listaAreas, idArea);
+        do{
+            if (areaClase == null) {
+                System.out.println("El area no existe");
+                if (Gimnasio.consultaOperacion()) { return null; }
+                idArea = sc.nextInt();
+                areaClase = Area.searchAreaInList(gimnasio1.listaAreas, idArea);
+            }
+
+            if ((areaClase != null) && (areaClase.claseArea != null)){
+                System.out.println("Esta area ya tiene asignada otra clase");
+                if (Gimnasio.consultaOperacion()) { return null; }
+                idArea = sc.nextInt();
+                areaClase = Area.searchAreaInList(gimnasio1.listaAreas, idArea);
+            }
+        } while ((areaClase == null)||(areaClase.claseArea != null));
+
         // Tipeo de la ID del entrenador a asignar, chequea si el entrenador elegido existe en el gimnasio
         System.out.println("Ingrese el ID del entrenador asignado ");
         int idEntrenador = sc.nextInt();
@@ -98,6 +119,13 @@ public class Clase {
         Entrenador.deleteEntrenador(gimnasio1,idEntrenador);
         entrenadorClase.historialEntrenamientos.add(clase1);
         gimnasio1.listaEntrenadores.add(entrenadorClase);
+
+        // Actualiza la clase con el area asignada
+        Area.deleteArea(gimnasio1,idArea);
+        areaClase.claseArea = clase1;
+        gimnasio1.listaAreas.add(areaClase);
+
+
         gimnasio1.listaClases.add(clase1);
         idsUsadas.add(idClase);
         // Retorna el objeto Clase
@@ -112,6 +140,41 @@ public class Clase {
                 return clase;
             }
         } return null;
+    }
+
+    public static void cumplirClase(Gimnasio gimnasio) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Ingrese el ID de la clase ya realizada: ");
+        int idClase = sc.nextInt();
+
+        Clase claseCumplir = searchClaseInList(gimnasio.getListaClases(), idClase);
+        do {
+            if (claseCumplir == null) {
+                System.out.println("Esta clase no existe");
+                if (Gimnasio.consultaOperacion()) { return; }
+                idClase = sc.nextInt();
+                claseCumplir = searchClaseInList(gimnasio.getListaClases(), idClase);
+            } else {
+                break;
+            }
+        } while (claseCumplir == null);
+
+        // Elimina todas las reservas hechas para la clase
+        ArrayList<Reserva> listaReservas = gimnasio.getListaReserva();
+        int finalIdClase = idClase;
+        listaReservas.removeIf(reserva -> reserva.getClaseReserva().getIdClase() == finalIdClase);
+        gimnasio.setListaReserva(listaReservas);
+
+        // Elimina el area la cual la clase fue asignada
+        Area areaClase = Area.searchAreaInList(gimnasio.getListaAreas(), finalIdClase);
+        Area.deleteArea(gimnasio,finalIdClase);
+        areaClase.setClaseArea(null);
+        gimnasio.listaAreas.add(areaClase);
+
+        // Elimina la clase del gimnasio
+        deleteClase(gimnasio,idClase);
+
     }
 
     public static void cancelarClase(Gimnasio gimnasio) {
@@ -143,6 +206,13 @@ public class Clase {
             entrenador.historialEntrenamientos.removeIf(clase -> clase.getIdClase() == finalIdClase);
         }
         gimnasio.setListaEntrenadores(listaEntrenadores);
+
+        // Elimina el area la cual la clase fue asignada
+        int finalIdClase = idClase;
+        Area areaClase = Area.searchAreaInList(gimnasio.getListaAreas(), finalIdClase);
+        Area.deleteArea(gimnasio,finalIdClase);
+        areaClase.setClaseArea(null);
+        gimnasio.listaAreas.add(areaClase);
 
         int finalIdClase = idClase;
         idsUsadas.removeIf(e -> e == finalIdClase);
