@@ -6,7 +6,7 @@ public class Main {
 
         //PRUEBA DE REGISTRO DE MIEMBRO
         //Miembro memb1 = Miembro.registrarMiembro(gimnasio1);
-        //Miembro memb1 = new Miembro("Matias","Quesada", 1,123123,"matuquesada999@gmail.com",23022004,12122024,"VIP","Por pagar","Ninguna");
+        Miembro memb1 = new Miembro("Matias","Quesada", 1,123123,"matuquesada999@gmail.com",23022004,12122024,"VIP","Por pagar","Ninguna");
         //Miembro memb2 = new Miembro("Aldo","Taha", 2,232323,"aldotaha@gmail.com",22233332,23232323,"Comun","Pagado","Le falta una pierna");
 
         //System.out.println(gimnasio1.listaMiembros);
@@ -47,14 +47,20 @@ public class Main {
         //PRUEBA RESERVA
         //Reserva reserva1 = Reserva.hacerReserva(gimnasio1);
 
-        //gimnasio1.listaMiembros.add(memb1);
+        gimnasio1.listaMiembros.add(memb1);
         //gimnasio1.listaMiembros.add(memb2);
         gimnasio1.listaEntrenadores.add(ent1);
 
         Gimnasio.obtenerListaEmpleados(gimnasio1);
         Clase clase = Clase.programarClase(gimnasio1);
         Gimnasio.obtenerListaEmpleados(gimnasio1);
-        //Reserva reserva1 = Reserva.hacerReserva(gimnasio1);
+
+
+
+        //Clase.cancelarClase(gimnasio1);
+        //Gimnasio.obtenerListaEmpleados(gimnasio1);
+
+        Reserva reserva1 = Reserva.hacerReserva(gimnasio1);
         //Reserva reserva2 = Reserva.hacerReserva(gimnasio1);
 
         //Gimnasio.obtenerListaEmpleados(gimnasio1);

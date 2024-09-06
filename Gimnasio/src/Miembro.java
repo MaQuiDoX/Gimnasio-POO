@@ -57,6 +57,7 @@ public class Miembro {
             existe = idsUsadas.contains(idMiembro1);
             if (existe) {
                 System.out.println("ID ya utilizada, ingrese nuevamente: ");
+                if (Gimnasio.consultaOperacion()) { return null; }
                 idMiembro1 = sc.nextInt();
             } else {
                 idsUsadas.add(idMiembro1);
@@ -72,6 +73,7 @@ public class Miembro {
         do {
             if (Integer.toString(fechaNacimiento1).length() != 8) {
                 System.out.println("Fecha de Nacimiento invalida, ingrese nuevamente: ");
+                if (Gimnasio.consultaOperacion()) { return null; }
                 fechaNacimiento1 = sc.nextInt();
             } else {
                 break;
@@ -83,6 +85,7 @@ public class Miembro {
         do {
             if (Integer.toString(fechaInscripcion1).length() != 8) {
                 System.out.println("Fecha de Inscripcion invalida, ingrese nuevamente: ");
+                if (Gimnasio.consultaOperacion()) { return null; }
                 fechaInscripcion1 = sc.nextInt();
             } else {
                 break;

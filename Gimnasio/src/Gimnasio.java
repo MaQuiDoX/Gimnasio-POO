@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class Gimnasio {
     private String nombreGimnasio;
@@ -47,6 +49,33 @@ public class Gimnasio {
             System.out.println();
         }
     }
+
+    public static boolean consultaOperacion() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("¿Desea seguir con la operación? (y/n)");
+        char opcion = ' ';
+        do {
+            opcion = sc.next().charAt(0);
+            sc.nextLine();
+            try {
+                if (opcion == 'y') {
+                    break;
+                } else if (opcion == 'n') {
+                    System.out.println("OK");
+                    return true;
+                } else {
+                    System.out.println("Opcion invalida. Ingrese de nuevo. ");
+                }
+            } catch (InputMismatchException e1) {
+                sc.nextLine();
+                System.out.println("Opcion invalida. Ingrese de nuevo. ");
+            }
+        } while ((opcion != 'y'));
+        return false;
+    }
+
+
 
     public String getNombreGimnasio() {
         return nombreGimnasio;

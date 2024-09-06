@@ -26,6 +26,7 @@ public class Reserva {
             existe = idsUsadas.contains(idReserva);
             if (existe) {
                 System.out.println("ID ya utilizada, ingrese nuevamente: ");
+                if (Gimnasio.consultaOperacion()) { return null; }
                 idReserva = sc.nextInt();
             } else {
                 idsUsadas.add(idReserva);
@@ -43,6 +44,7 @@ public class Reserva {
             miembroReserva = Miembro.searchMiembroInList(gimnasio1.getListaMiembros(),idMiembro);
             if (miembroReserva == null){
                 System.out.println("El miembro no está registrado");
+                if (Gimnasio.consultaOperacion()) { return null; }
                 miembroExistente = false;
             } else {
                 miembroExistente = true;
@@ -60,6 +62,8 @@ public class Reserva {
         do {
             idClase = sc.nextInt();
             claseReserva = Clase.searchClaseInList(gimnasio1.getListaClases(),idClase);
+
+            // Este parrafo chequea si la clase existe
             if (claseReserva == null){
                 System.out.println("La clase no existe");
                 existe1 = false;
@@ -67,6 +71,7 @@ public class Reserva {
                 existe1 = true;
             }
 
+            // Esto parrafo chequea si la clase acepta mas miembros
             if ((existe1)&&(claseReserva.getCapacidadMiembros() == claseReserva.getListaMiembros().size())) {
                 System.out.println("La clase no acepta mas miembros");
                 llena1 = true;
@@ -74,12 +79,18 @@ public class Reserva {
                 llena1 = false;
             }
 
+            // Este parrafo chequea si el miembro ya esta anotado en la lista de la clase
             if ((existe1)&&(Miembro.searchMiembroInList(claseReserva.getListaMiembros(),idMiembro)!=null)){
                 System.out.println("El miembro ya está anotado en esta clase");
                 anotado1 = true;
             } else if ((existe1)&&(Miembro.searchMiembroInList(claseReserva.getListaMiembros(),idMiembro)==null)){
                 anotado1 = false;
             }
+
+            if ((!existe1) || (llena1) || anotado1){
+                if (Gimnasio.consultaOperacion()) { return null; }
+            }
+
         }while ((!existe1)||(llena1)||(anotado1));
 
 

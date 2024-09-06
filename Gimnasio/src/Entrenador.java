@@ -54,6 +54,7 @@ public class Entrenador {
             existe = idsUsadas.contains(idEntrenador);
             if (existe) {
                 System.out.println("ID ya utilizada, ingrese nuevamente: ");
+                if (Gimnasio.consultaOperacion()) { return null; }
                 idEntrenador = sc1.nextInt();
             } else {
                 idsUsadas.add(idEntrenador);
@@ -66,6 +67,7 @@ public class Entrenador {
         do {
             if (Integer.toString(horarioEntrada1).length() != 4) {
                 System.out.println("Valor temporal invalido, ingrese nuevamente: ");
+                if (Gimnasio.consultaOperacion()) { return null; }
                 horarioEntrada1 = sc1.nextInt();
             } else {
                 break;
