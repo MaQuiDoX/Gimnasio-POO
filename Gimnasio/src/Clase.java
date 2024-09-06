@@ -214,7 +214,6 @@ public class Clase {
         areaClase.setClaseArea(null);
         gimnasio.listaAreas.add(areaClase);
 
-        int finalIdClase = idClase;
         idsUsadas.removeIf(e -> e == finalIdClase);
     }
 

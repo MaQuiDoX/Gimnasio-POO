@@ -6,7 +6,7 @@ public class Main {
 
         //PRUEBA DE REGISTRO DE MIEMBRO
         //Miembro memb1 = Miembro.registrarMiembro(gimnasio1);
-        Miembro memb1 = new Miembro("Matias","Quesada", 1,123123,"matuquesada999@gmail.com",23022004,12122024,"VIP","Por pagar","Ninguna");
+        Miembro memb1 = new Miembro("Matias","Quesada", 1,123123,"matuquesada999@gmail.com",23022004,12122024,"VIP",null,"Ninguna");
         //Miembro memb2 = new Miembro("Aldo","Taha", 2,232323,"aldotaha@gmail.com",22233332,23232323,"Comun","Pagado","Le falta una pierna");
 
         //System.out.println(gimnasio1.listaMiembros);
