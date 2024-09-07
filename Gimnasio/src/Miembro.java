@@ -205,6 +205,25 @@ public class Miembro {
         return null;
     }
 
+    public static Integer askMiembroId(Gimnasio gimnasio1){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Ingrese el ID del miembro: ");
+        int id;
+        boolean existe;
+        do {
+            id = sc.nextInt();
+            if (Miembro.searchMiembroInList(gimnasio1.listaMiembros, id) == null) {
+                System.out.println("El ID del miembro no existe");
+                existe = false;
+                if (Gimnasio.consultaOperacion()) {return 0;}
+            } else {
+                existe = true;
+                return id;
+            }
+        } while (!existe);
+        return 0;
+    }
+
     public static String formatearFecha(int numero) {
         String numeroStr = String.format("%06d", numero);
 
