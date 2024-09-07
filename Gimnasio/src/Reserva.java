@@ -169,6 +169,12 @@ public class Reserva {
         } return null;
     }
 
+    public static void imprimirReserva(Reserva reserva){
+        System.out.println("ID de la reserva: "+ reserva.getIdReserva());
+        System.out.println("Nombre del miembro que realiza la reserva: "+reserva.getMiembroReserva().getNombreMiembro()+" | ID: "+reserva.getMiembroReserva().getIdMiembro());
+        System.out.println("Nombre de la clase a la que se asigna: "+reserva.getClaseReserva().getNombreClase()+" | ID: "+reserva.getClaseReserva().getIdClase());
+    }
+
     public static void deleteClase(Gimnasio gimnasio1, int idClase) {
         gimnasio1.listaClases.removeIf(clase -> clase.getIdClase() == idClase);
     }

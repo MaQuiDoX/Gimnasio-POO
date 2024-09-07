@@ -57,6 +57,45 @@ public class Area {
         } return null;
     }
 
+    public static void imprimirArea(Area area){
+        int numEquipo = 1;
+        System.out.println("Nombre del área" + area.getNombreArea());
+        System.out.println("Id del área" + area.getIdArea());
+        if (area.getClaseArea() != null){
+            System.out.println("Nombre de la clase asignada: " + area.getClaseArea().getNombreClase() + " | ID: " + area.getClaseArea().getIdClase());
+        } else {
+            System.out.println("Esta área no tiene asignada ninguna clase");
+        }
+        if (area.getListaEquipo() != null){
+            for (Equipo equipo : area.getListaEquipo()){
+                System.out.println("Nombre del equipo N° " + numEquipo +": "+equipo.getTipoEquipo()+" | ID: "+equipo.getIdEquipo());
+                numEquipo++;
+            }
+        } else {
+            System.out.println("Esta área no tiene asignado ningún equipo");
+        }
+
+    }
+
+
+    public static Integer askAreaId(Gimnasio gimnasio1){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Ingrese el ID del área: ");
+        int id;
+        boolean existe;
+        do {
+            id = sc.nextInt();
+            if (Area.searchAreaInList(gimnasio1.listaAreas, id) == null) {
+                System.out.println("El ID del área no existe");
+                existe = false;
+                if (Gimnasio.consultaOperacion()) {return 0;}
+            } else {
+                existe = true;
+                return id;
+            }
+        } while (!existe);
+        return 0;
+    }
 
 
     public int getIdArea() {

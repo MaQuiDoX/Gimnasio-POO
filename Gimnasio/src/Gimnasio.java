@@ -5,8 +5,8 @@ import java.util.Scanner;
 public class Gimnasio {
     private String nombreGimnasio;
     private String direccionGimnasio;
-    private int horaApertura;
-    private int horaCierre;
+    private String horaApertura;
+    private String horaCierre;
     private String telefonoGimnasio;
     public ArrayList<Miembro> listaMiembros;
     public ArrayList<Entrenador> listaEntrenadores;
@@ -15,7 +15,7 @@ public class Gimnasio {
     public ArrayList<Equipo> listaEquipos;
     public ArrayList<Reserva> listaReserva;
 
-    public Gimnasio(String nombreGimnasio, String direccionGimnasio, int horaApertura, int horaCierre, String telefonoGimnasio, ArrayList<Miembro> listaMiembros, ArrayList<Entrenador> listaEntrenadores, ArrayList<Clase> listaClases, ArrayList<Area> listaAreas, ArrayList<Equipo> listaEquipos, ArrayList<Reserva> listaReserva) {
+    public Gimnasio(String nombreGimnasio, String direccionGimnasio, String horaApertura, String horaCierre, String telefonoGimnasio, ArrayList<Miembro> listaMiembros, ArrayList<Entrenador> listaEntrenadores, ArrayList<Clase> listaClases, ArrayList<Area> listaAreas, ArrayList<Equipo> listaEquipos, ArrayList<Reserva> listaReserva) {
         this.nombreGimnasio = nombreGimnasio;
         this.direccionGimnasio = direccionGimnasio;
         this.horaApertura = horaApertura;
@@ -51,6 +51,50 @@ public class Gimnasio {
         }
     }
 
+    public static void obtenerListaArea(Gimnasio gimnasio1){
+        int numentr = 1;
+
+        for (Area area : gimnasio1.listaAreas) {
+            System.out.println("AREA N° " + numentr);
+            Area.imprimirArea(area);
+            numentr++;
+            System.out.println();
+        }
+    }
+
+    public static void obtenerListaReservas(Gimnasio gimnasio1){
+        int numentr = 1;
+
+        for (Reserva reserva : gimnasio1.listaReserva) {
+            System.out.println("RESERVA N° " + numentr);
+            Reserva.imprimirReserva(reserva);
+            numentr++;
+            System.out.println();
+        }
+    }
+
+    public static void obtenerListaEquipos(Gimnasio gimnasio1){
+        int numentr = 1;
+
+        for (Equipo equipo: gimnasio1.listaEquipos) {
+            System.out.println("EQUIPO N° " + numentr);
+            Equipo.imprimirEquipo(equipo);
+            numentr++;
+            System.out.println();
+        }
+    }
+
+    public static void obtenerListaClases(Gimnasio gimnasio1){
+        int numentr = 1;
+
+        for (Clase clase : gimnasio1.listaClases) {
+            System.out.println("CLASE N° " + numentr);
+            Clase.imprimirClase(clase);
+            numentr++;
+            System.out.println();
+        }
+    }
+
     public static boolean consultaOperacion() {
         Scanner sc = new Scanner(System.in);
 
@@ -76,6 +120,14 @@ public class Gimnasio {
         return false;
     }
 
+    public static void imprimirGimnasio(Gimnasio gimnasio){
+        System.out.println("Nombre del gimnasio:" + gimnasio.getNombreGimnasio());
+        System.out.println("Dirección del gimnasio: " + gimnasio.getDireccionGimnasio());
+        System.out.println("Hora de apertura: "+ Entrenador.formatearHora(gimnasio.getHoraApertura()));
+        System.out.println("Hora de cierre: "+ Entrenador.formatearHora(gimnasio.getHoraCierre()));
+        System.out.println("Telefono del gimnasio: "+gimnasio.getTelefonoGimnasio());
+        System.out.println();
+    }
 
 
     public String getNombreGimnasio() {
@@ -94,19 +146,19 @@ public class Gimnasio {
         this.direccionGimnasio = direccionGimnasio;
     }
 
-    public int getHoraApertura() {
+    public String getHoraApertura() {
         return horaApertura;
     }
 
-    public void setHoraApertura(int horaApertura) {
+    public void setHoraApertura(String horaApertura) {
         this.horaApertura = horaApertura;
     }
 
-    public int getHoraCierre() {
+    public String getHoraCierre() {
         return horaCierre;
     }
 
-    public void setHoraCierre(int horaCierre) {
+    public void setHoraCierre(String horaCierre) {
         this.horaCierre = horaCierre;
     }
 

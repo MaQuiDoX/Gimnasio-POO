@@ -7,14 +7,14 @@ public class Clase {
     private int idClase;
     private String nombreClase;
     private int capacidadMiembros;
-    private int horarioClase;
-    private int fechaClase;
+    private String horarioClase;
+    private String fechaClase;
     private Entrenador entrenadorClase;
     public ArrayList<Miembro> listaMiembros;
 
     static ArrayList<Integer> idsUsadas = new ArrayList<>();
 
-    public Clase(int idClase, String nombreClase, int capacidadMiembros, int horarioClase, int fechaClase, Entrenador entrenadorClase, ArrayList<Miembro> listaMiembros) {
+    public Clase(int idClase, String nombreClase, int capacidadMiembros, String horarioClase, String fechaClase, Entrenador entrenadorClase, ArrayList<Miembro> listaMiembros) {
         this.idClase = idClase;
         this.nombreClase = nombreClase;
         this.capacidadMiembros = capacidadMiembros;
@@ -54,30 +54,30 @@ public class Clase {
 
         // Tipeo del horario de la clase, chequea que el formato sea el adecuado
         System.out.println("Ingrese el horario de clase (HHMM): ");
-        int horarioClase = sc.nextInt();
+        String horarioClase = sc.nextLine();
         do {
-            if (Integer.toString(horarioClase).length() != 4) {
+            if (horarioClase.length() != 4) {
                 System.out.println("Valor temporal invalido, ingrese nuevamente: ");
                 if (Gimnasio.consultaOperacion()) { return null; }
-                horarioClase = sc.nextInt();
+                horarioClase = sc.nextLine();
             } else {
                 break;
             }
-        } while (Integer.toString(horarioClase).length() != 4);
+        } while (horarioClase.length() != 4);
         sc.nextLine();
 
         // Tipeo de la fecha de la clase, chequea que el formato sea el adecuado
         System.out.println("Ingrese la fecha de la clase: (DDMMAAAA)");
-        int fechaClase = sc.nextInt();
+        String fechaClase = sc.nextLine();
         do {
-            if (Integer.toString(fechaClase).length() != 8) {
+            if (fechaClase.length() != 8) {
                 System.out.println("Fecha de Inscripcion invalida, ingrese nuevamente: ");
                 if (Gimnasio.consultaOperacion()) { return null; }
-                fechaClase = sc.nextInt();
+                fechaClase = sc.nextLine();
             } else {
                 break;
             }
-        } while (Integer.toString(fechaClase).length() != 8);
+        } while (fechaClase.length() != 8);
 
         System.out.println("Ingrese el ID del area a la cual desea asignar la clase: ");
         int idArea = sc.nextInt();
@@ -217,6 +217,28 @@ public class Clase {
         idsUsadas.removeIf(e -> e == finalIdClase);
     }
 
+    public static void imprimirClase(Clase clase){
+        int numMiembro = 1;
+        System.out.println("Nombre de la clase: "+clase.getNombreClase());
+        System.out.println("ID de la clase: " + clase.getIdClase());
+        System.out.println("Capacidad de miembros: "+clase.getCapacidadMiembros());
+        System.out.println("Fecha de la clase: "+ Miembro.formatearFecha(clase.getFechaClase()));
+        System.out.println("Horario de la clase: "+ Entrenador.formatearHora(clase.getHorarioClase()));
+        if (clase.getEntrenadorClase() != null){
+            System.out.println("Nombre del Entrenador asignado: "+clase.getEntrenadorClase().getNombreEntrenador()+" | ID: "+clase.getEntrenadorClase().getIdEntrenador());
+        } else {
+            System.out.println("Esta clase no tiene entrenador asignado");
+        }
+        if (clase.getListaMiembros()!=null) {
+            for (Miembro miembro : clase.getListaMiembros()){
+                System.out.println("Miembro N°"+numMiembro+" | Nombre del miembro: "+miembro.getNombreMiembro()+" | ID: "+miembro.getIdMiembro());
+                numMiembro++;
+            }
+        } else {
+            System.out.println("Esta clase no tiene miembros inscriptos");
+        }
+    }
+
     public static void deleteClase(Gimnasio gimnasio1, int idClase){
         gimnasio1.listaClases.removeIf(clase -> clase.getIdClase() == idClase);
     }
@@ -245,11 +267,11 @@ public class Clase {
         this.capacidadMiembros = capacidadMiembros;
     }
 
-    public int getHorarioClase() {
+    public String getHorarioClase() {
         return horarioClase;
     }
 
-    public void setHorarioClase(int horarioClase) {
+    public void setHorarioClase(String horarioClase) {
         this.horarioClase = horarioClase;
     }
 
@@ -267,5 +289,13 @@ public class Clase {
 
     public void setListaMiembros(ArrayList<Miembro> listaMiembros) {
         this.listaMiembros = listaMiembros;
+    }
+
+    public String getFechaClase() {
+        return fechaClase;
+    }
+
+    public void setFechaClase(String fechaClase) {
+        this.fechaClase = fechaClase;
     }
 }

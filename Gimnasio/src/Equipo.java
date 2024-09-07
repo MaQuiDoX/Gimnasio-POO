@@ -81,6 +81,46 @@ public class Equipo {
         }while ((opcion != 'y'));
     }
 
+    public static Equipo searchEquipoInList(ArrayList<Equipo> gimnasio, int idEquipo){
+        for (Equipo equipo : gimnasio){
+            if (equipo.getIdEquipo() == idEquipo){
+                return equipo;
+            }
+        } return null;
+    }
+
+    public static Integer askEquipoId(Gimnasio gimnasio1){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Ingrese el ID del equipo: ");
+        int id;
+        boolean existe;
+        do {
+            id = sc.nextInt();
+            if (Equipo.searchEquipoInList(gimnasio1.listaEquipos, id) == null) {
+                System.out.println("El ID del equipo no existe");
+                existe = false;
+                if (Gimnasio.consultaOperacion()) {return 0;}
+            } else {
+                existe = true;
+                return id;
+            }
+        } while (!existe);
+        return 0;
+    }
+
+    /*
+    private int idEquipo;
+    private String tipoEquipo;
+    private String estadoEquipo;
+     */
+
+
+    public static void imprimirEquipo(Equipo equipo){
+        System.out.println("ID del equipo: " + equipo.getIdEquipo());
+        System.out.println("Tipo de equipo: " + equipo.getTipoEquipo());
+        System.out.println("Estado del equipo: " + equipo.getEstadoEquipo());
+    }
+
     public int getIdEquipo() {
         return idEquipo;
     }

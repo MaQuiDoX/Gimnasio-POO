@@ -8,15 +8,15 @@ public class Miembro {
     private int idMiembro;
     private int nroDocumento;
     private String email;
-    private int fechaNacimiento;
-    private int fechaInscripcion;
+    private String fechaNacimiento;
+    private String fechaInscripcion;
     private String tipoMembresia;
     private Suscripcion estadoSuscripcion;
     private String condicion;
 
     static ArrayList<Integer> idsUsadas = new ArrayList<>();
 
-    public Miembro(String nombreMiembro, String apellidoMiembro, int idMiembro, int nroDocumento, String email, int fechaNacimiento, int fechaInscripcion, String tipoMembresia, Suscripcion estadoSuscripcion, String condicion) {
+    public Miembro(String nombreMiembro, String apellidoMiembro, int idMiembro, int nroDocumento, String email, String fechaNacimiento, String fechaInscripcion, String tipoMembresia, Suscripcion estadoSuscripcion, String condicion) {
         this.nombreMiembro = nombreMiembro;
         this.apellidoMiembro = apellidoMiembro;
         this.idMiembro = idMiembro;
@@ -67,32 +67,32 @@ public class Miembro {
         int nroDocumento1 = sc.nextInt();
 
         System.out.print("Fecha Nacimiento: ");
-        int fechaNacimiento1 = sc.nextInt();
+        String fechaNacimiento1 = sc.nextLine();
         do {
-            if (Integer.toString(fechaNacimiento1).length() != 8) {
+            if (fechaNacimiento1.length() != 8) {
                 System.out.println("Fecha de Nacimiento invalida, ingrese nuevamente: ");
                 if (Gimnasio.consultaOperacion()) {
                     return null;
                 }
-                fechaNacimiento1 = sc.nextInt();
+                fechaNacimiento1 = sc.nextLine();
             } else {
                 break;
             }
-        } while (Integer.toString(fechaNacimiento1).length() != 8);
+        } while (fechaNacimiento1.length() != 8);
 
         System.out.print("Fecha Inscripcion: ");
-        int fechaInscripcion1 = sc.nextInt();
+        String fechaInscripcion1 = sc.nextLine();
         do {
-            if (Integer.toString(fechaInscripcion1).length() != 8) {
+            if (fechaInscripcion1.length() != 8) {
                 System.out.println("Fecha de Inscripcion invalida, ingrese nuevamente: ");
                 if (Gimnasio.consultaOperacion()) {
                     return null;
                 }
-                fechaInscripcion1 = sc.nextInt();
+                fechaInscripcion1 = sc.nextLine();
             } else {
                 break;
             }
-        } while (Integer.toString(fechaInscripcion1).length() != 8);
+        } while (fechaInscripcion1.length() != 8);
 
         Miembro miembro1 = new Miembro(nombreMiembro1, apellidoMiembro1, idMiembro1, nroDocumento1, email1, fechaNacimiento1, fechaInscripcion1, tipoMembresia1, null, condicion1);
         System.out.println();
@@ -146,11 +146,12 @@ public class Miembro {
                 } else if (opcion == 6) {
                     int dni1 = sc1.nextInt();
                     miembro1.setNroDocumento(dni1);
+                    sc1.nextLine();
                 } else if (opcion == 7) {
-                    int fechaNacimiento1 = sc1.nextInt();
+                    String fechaNacimiento1 = sc1.nextLine();
                     miembro1.setFechaNacimiento(fechaNacimiento1);
                 } else if (opcion == 8) {
-                    int fechaInscripcion1 = sc1.nextInt();
+                    String fechaInscripcion1 = sc1.nextLine();
                     miembro1.setFechaInscripcion(fechaInscripcion1);
                 } else if (opcion == 9) {
                     int idMiembro1 = sc1.nextInt();
@@ -182,11 +183,14 @@ public class Miembro {
         System.out.println("Apellido: " + miembro1.getApellidoMiembro());
         System.out.println("Email: " + miembro1.getEmail());
         System.out.println("Tipo de Membresia: " + miembro1.getTipoMembresia());
-        if (miembro1.estadoSuscripcion.isEstadoSuscripcion()) {
+        if (miembro1.getEstadoSuscripcion() == null){
+            System.out.println("El miembro aún no está suscripto.");
+        } else if (miembro1.estadoSuscripcion.isEstadoSuscripcion()) {
             System.out.println("Estado de suscripción: Pagado");
         } else {
             System.out.println("Estado de suscripción: Sin pagar");
         }
+
         System.out.println("Estado de la suscipcion: ");
         System.out.println("Condicion: " + miembro1.getCondicion());
         System.out.println("Nro de Documento: " + miembro1.getNroDocumento());
@@ -224,8 +228,8 @@ public class Miembro {
         return 0;
     }
 
-    public static String formatearFecha(int numero) {
-        String numeroStr = String.format("%06d", numero);
+    public static String formatearFecha(String numero) {
+        String numeroStr = numero;
 
         String dia = numeroStr.substring(0, 2);
         String mes = numeroStr.substring(2, 4);
@@ -274,19 +278,19 @@ public class Miembro {
         this.email = email;
     }
 
-    public int getFechaNacimiento() {
+    public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(int fechaNacimiento) {
+    public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public int getFechaInscripcion() {
+    public String getFechaInscripcion() {
         return fechaInscripcion;
     }
 
-    public void setFechaInscripcion(int fechaInscripcion) {
+    public void setFechaInscripcion(String fechaInscripcion) {
         this.fechaInscripcion = fechaInscripcion;
     }
 

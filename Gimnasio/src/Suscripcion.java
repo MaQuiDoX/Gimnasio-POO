@@ -7,13 +7,13 @@ public class Suscripcion {
     private int idMiembro;
     private int costoSuscripcion;
     private String tipoSuscripcion;
-    private int fechaInicio;
-    private int fechaFin;
+    private String fechaInicio;
+    private String fechaFin;
     public boolean estadoSuscripcion;
 
     static ArrayList<Integer> idsUsadas;
 
-    public Suscripcion(int idSuscripcion, int idMiembro, int costoSuscripcion, String tipoSuscripcion, int fechaInicio, int fechaFin, boolean estadoSuscripcion) {
+    public Suscripcion(int idSuscripcion, int idMiembro, int costoSuscripcion, String tipoSuscripcion, String fechaInicio, String fechaFin, boolean estadoSuscripcion) {
         this.idSuscripcion = idSuscripcion;
         this.idMiembro = idMiembro;
         this.costoSuscripcion = costoSuscripcion;
@@ -79,30 +79,31 @@ public class Suscripcion {
 
         System.out.println("Ingrese el costo de la suscripción: ");
         int costoSuscripcion = sc.nextInt();
+        sc.nextLine();
 
         System.out.print("Fecha de inicio de suscripción: ");
-        int fechaInicio = sc.nextInt();
+        String fechaInicio = sc.nextLine();
         do {
-            if (Integer.toString(fechaInicio).length() != 8) {
+            if (fechaInicio.length() != 8) {
                 System.out.println("Fecha de inicio invalida, ingrese nuevamente: ");
                 if (Gimnasio.consultaOperacion()) { return; }
-                fechaInicio = sc.nextInt();
+                fechaInicio = sc.nextLine();
             } else {
                 break;
             }
-        } while (Integer.toString(fechaInicio).length() != 8);
+        } while (fechaInicio.length() != 8);
 
         System.out.print("Fecha de vencimiento de suscripción: ");
-        int fechaVencimiento = sc.nextInt();
+        String fechaVencimiento = sc.nextLine();
         do {
-            if (Integer.toString(fechaVencimiento).length() != 8) {
+            if (fechaVencimiento.length() != 8) {
                 System.out.println("Fecha de vencimiento invalida, ingrese nuevamente: ");
                 if (Gimnasio.consultaOperacion()) { return; }
-                fechaVencimiento = sc.nextInt();
+                fechaVencimiento = sc.nextLine();
             } else {
                 break;
             }
-        } while (Integer.toString(fechaVencimiento).length() != 8);
+        } while (fechaVencimiento.length() != 8);
 
         char opcion = ' ';
         boolean estadoSuscripcion = false;
@@ -261,6 +262,7 @@ public class Suscripcion {
         gimnasio1.listaReserva.removeIf(reserva -> reserva.getMiembroReserva().getIdMiembro() == finalMiembroSub.getIdMiembro());
     }
 
+
     public int getIdSuscripcion() {
         return idSuscripcion;
     }
@@ -293,19 +295,19 @@ public class Suscripcion {
         this.tipoSuscripcion = tipoSuscripcion;
     }
 
-    public int getFechaInicio() {
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(int fechaInicio) {
+    public void setFechaInicio(String fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public int getFechaFin() {
+    public String getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(int fechaFin) {
+    public void setFechaFin(String fechaFin) {
         this.fechaFin = fechaFin;
     }
 
