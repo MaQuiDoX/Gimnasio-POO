@@ -67,17 +67,8 @@ public class Clase {
         sc.nextLine();
 
         // Tipeo de la fecha de la clase, chequea que el formato sea el adecuado
-        System.out.println("Ingrese la fecha de la clase: (DDMMAAAA)");
-        String fechaClase = sc.nextLine();
-        do {
-            if (fechaClase.length() != 8) {
-                System.out.println("Fecha de Inscripcion invalida, ingrese nuevamente: ");
-                if (Gimnasio.consultaOperacion()) { return null; }
-                fechaClase = sc.nextLine();
-            } else {
-                break;
-            }
-        } while (fechaClase.length() != 8);
+        System.out.println("Ingrese la fecha de la clase: ");
+        String fechaClase = Miembro.getterFecha();
 
         System.out.println("Ingrese el ID del area a la cual desea asignar la clase: ");
         int idArea = sc.nextInt();

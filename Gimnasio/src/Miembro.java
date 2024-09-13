@@ -67,32 +67,10 @@ public class Miembro {
         int nroDocumento1 = sc.nextInt();
 
         System.out.print("Fecha Nacimiento: ");
-        String fechaNacimiento1 = sc.nextLine();
-        do {
-            if (fechaNacimiento1.length() != 8) {
-                System.out.println("Fecha de Nacimiento invalida, ingrese nuevamente: ");
-                if (Gimnasio.consultaOperacion()) {
-                    return null;
-                }
-                fechaNacimiento1 = sc.nextLine();
-            } else {
-                break;
-            }
-        } while (fechaNacimiento1.length() != 8);
+        String fechaNacimiento1 = getterFecha();
 
         System.out.print("Fecha Inscripcion: ");
-        String fechaInscripcion1 = sc.nextLine();
-        do {
-            if (fechaInscripcion1.length() != 8) {
-                System.out.println("Fecha de Inscripcion invalida, ingrese nuevamente: ");
-                if (Gimnasio.consultaOperacion()) {
-                    return null;
-                }
-                fechaInscripcion1 = sc.nextLine();
-            } else {
-                break;
-            }
-        } while (fechaInscripcion1.length() != 8);
+        String fechaInscripcion1 = getterFecha();
 
         Miembro miembro1 = new Miembro(nombreMiembro1, apellidoMiembro1, idMiembro1, nroDocumento1, email1, fechaNacimiento1, fechaInscripcion1, tipoMembresia1, null, condicion1);
         System.out.println();
@@ -148,10 +126,10 @@ public class Miembro {
                     miembro1.setNroDocumento(dni1);
                     sc1.nextLine();
                 } else if (opcion == 7) {
-                    String fechaNacimiento1 = sc1.nextLine();
+                    String fechaNacimiento1 = getterFecha();
                     miembro1.setFechaNacimiento(fechaNacimiento1);
                 } else if (opcion == 8) {
-                    String fechaInscripcion1 = sc1.nextLine();
+                    String fechaInscripcion1 = getterFecha();
                     miembro1.setFechaInscripcion(fechaInscripcion1);
                 } else if (opcion == 9) {
                     int idMiembro1 = sc1.nextInt();
@@ -228,14 +206,90 @@ public class Miembro {
         return 0;
     }
 
-    public static String formatearFecha(String numero) {
-        String numeroStr = numero;
+    public static String formatearFecha(String numeroStr) {
 
         String dia = numeroStr.substring(0, 2);
         String mes = numeroStr.substring(2, 4);
         String anio = numeroStr.substring(4, 8);
 
         return dia + "/" + mes + "/" + anio;
+    }
+
+    public static String getterFecha(){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("(AAAA) Año: ");
+        int anio = sc.nextInt();
+        do {
+            if (String.valueOf(anio).length() != 4) {
+                System.out.print("Año incorrecto, ingrese nuevamente: ");
+                anio = sc.nextInt();
+            }
+        } while (String.valueOf(anio).length() != 4);
+
+        System.out.print("(MM) Mes: ");
+        int mes = sc.nextInt();
+        do {
+            if ((String.valueOf(mes).length() > 2)||((mes < 1)||(mes > 12))) {
+                System.out.print("Mes incorrecto, ingrese nuevamente: ");
+                mes = sc.nextInt();
+            }
+        } while ((String.valueOf(mes).length() > 2)||((mes < 1)||(mes > 12)));
+
+        System.out.print("(DD) Dia: ");
+        int dia = sc.nextInt();
+        do {
+            if ((String.valueOf(dia).length() > 2)||((dia < 1)||(dia > obtenerDiasEnMes(anio,mes)))){
+                System.out.print("Dia incorrecto, ingrese nuevamente: ");
+                dia = sc.nextInt();
+            }
+        } while ((String.valueOf(dia).length() > 2)||((dia < 1)||(dia > obtenerDiasEnMes(anio,mes))));
+
+        String diaStr = String.valueOf(dia);
+        if (diaStr.length() == 1){ diaStr = "0" + diaStr;}
+
+        String mesStr = String.valueOf(mes);
+        if (mesStr.length() == 1){ mesStr = "0" + mesStr;}
+
+        String anioStr = String.valueOf(anio);
+
+        String fechaStr = diaStr + mesStr + anioStr;
+        sc.nextLine();
+        return fechaStr;
+
+    }
+
+    public static int obtenerDiasEnMes(int year, int month) {
+        switch (month) {
+            case 1: // Enero
+            case 3: // Marzo
+            case 5: // Mayo
+            case 7: // Julio
+            case 8: // Agosto
+            case 10: // Octubre
+            case 12: // Diciembre
+                return 31;
+            case 4: // Abril
+            case 6: // Junio
+            case 9: // Septiembre
+            case 11: // Noviembre
+                return 30;
+            case 2: // Febrero
+                return esBisiesto(year) ? 29 : 28;
+            default:
+                return -1;
+        }
+    }
+
+    public static boolean esBisiesto(int year) {
+        if (year % 4 == 0) {
+            if (year % 100 == 0) {
+                return year % 400 == 0;
+            } else {
+                return true;
+            }
+        }
+        return false;
     }
 
     public String getNombreMiembro() {

@@ -1,20 +1,33 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Clase que representa las reservas
+ * @author Manuel Matías Quesada Riccieri
+ */
 public class Reserva {
     private int idReserva;
     private Miembro miembroReserva;
     private Clase claseReserva;
 
-
     static ArrayList<Integer> idsUsadas = new ArrayList();
 
+    /**
+     * Constructor de reservas, recibe parametros
+     * @param idReserva ID de la reserva
+     * @param miembroReserva Objeto Miembro asociado a la reserva
+     * @param claseReserva Objeto Clase asociado a la reserva
+     */
     public Reserva(int idReserva, Miembro miembroReserva, Clase claseReserva) {
         this.idReserva = idReserva;
         this.miembroReserva = miembroReserva;
         this.claseReserva = claseReserva;
     }
 
+    /**
+     * Función para registrar una nueva reserva, pide al usuario todos los parametros individuales y llama al constructor para generar una suscripción
+     * @param gimnasio1 Entra a la función para trabajar con sus listas asociadas
+     */
     public static Reserva hacerReserva(Gimnasio gimnasio1) {
         Scanner sc = new Scanner(System.in);
 
@@ -41,6 +54,7 @@ public class Reserva {
         boolean miembroSubPagada = false;
         System.out.println("Ingrese el ID del miembro que desea reservar: ");
         do {
+            // Chequea si el miembro ya ha sido registrado
             idMiembro = sc.nextInt();
             miembroReserva = Miembro.searchMiembroInList(gimnasio1.getListaMiembros(),idMiembro);
             if (miembroReserva == null){
@@ -51,6 +65,7 @@ public class Reserva {
                 miembroExistente = true;
             }
 
+            // Chequea si el miembro está habilitado para hacer una reserva a partir de si posee una suscripción
             if ((miembroExistente) && (miembroReserva.getEstadoSuscripcion() == null)) {
                 System.out.println("El miembro no está suscripto");
                 if (Gimnasio.consultaOperacion()) { return null; }
@@ -59,6 +74,7 @@ public class Reserva {
                 miembroSuscripto = false;
             }
 
+            // Chequea si el miembro está habilitado para hacer una reserva a partir de si ha pagado la suscripción
             if ((miembroExistente) && (miembroSuscripto) && (!miembroReserva.getEstadoSuscripcion().isEstadoSuscripcion())) {
                 System.out.println("El miembro no ha pagado su suscripción");
                 if (Gimnasio.consultaOperacion()) { return null; }
@@ -115,16 +131,21 @@ public class Reserva {
 
         }while ((!existe1)||(llena1)||(anotado1));
 
-
+        // Elimina la clase, añade un nuevo miembro a su lista de miembros y la vuelve a añadir a la lista de clases del gimnasio
         deleteClase(gimnasio1,idClase);
         claseReserva.listaMiembros.add(miembroReserva);
         gimnasio1.listaClases.add(claseReserva);
         idsUsadas.add(idReserva);
 
+        // Retorna nuevo objeto reserva
         System.out.println();
         return new Reserva(idReserva, miembroReserva, claseReserva);
     }
 
+    /**
+     * Accede a la lista de Reservas del gimnasio y, a partir de un parametro pedido, elimina la reserva y actualiza las lista de clases.
+     * @param gimnasio Entra a la función para trabajar con sus listas asociadas
+     */
     public static void cancelarReserva(Gimnasio gimnasio) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Ingrese el ID de la reserva que desea cancelar:");
@@ -160,6 +181,12 @@ public class Reserva {
 
     }
 
+    /**
+     * Función para buscar una Reserva en una lista de Reservas
+     * @param gimnasio ArrayList de reservas del gimnasio
+     * @param idReserva ID de la reserva
+     * @return Objeto Reserva pedido por ID, null en caso de no encontrarlo en la lista
+     */
     public static Reserva searchReservaInList(ArrayList<Reserva> gimnasio, int idReserva){
         // A partir de una ID dada, recorre el ArrayList donde se encuentran las reservas registradas en el gimnasio, la devuelve. En caso contrario retorna un null
         for (Reserva reserva : gimnasio){
@@ -169,16 +196,30 @@ public class Reserva {
         } return null;
     }
 
+    /**
+     * Función que imprime todos los parametros del objeto Reserva
+     * @param reserva Objeto Reserva
+     */
     public static void imprimirReserva(Reserva reserva){
         System.out.println("ID de la reserva: "+ reserva.getIdReserva());
         System.out.println("Nombre del miembro que realiza la reserva: "+reserva.getMiembroReserva().getNombreMiembro()+" | ID: "+reserva.getMiembroReserva().getIdMiembro());
         System.out.println("Nombre de la clase a la que se asigna: "+reserva.getClaseReserva().getNombreClase()+" | ID: "+reserva.getClaseReserva().getIdClase());
     }
 
+    /**
+     * Función que elimina el Objeto Clase de la lista de Clases del Gimnasio ingresado por parametro
+     * @param gimnasio1 Objeto Gimnasio
+     * @param idClase ID de la Clase
+     */
     public static void deleteClase(Gimnasio gimnasio1, int idClase) {
         gimnasio1.listaClases.removeIf(clase -> clase.getIdClase() == idClase);
     }
 
+    /**
+     * Función que elimina el Objeto Reserva de la lista de Reservas del Gimnasio ingresado por parametro
+     * @param gimnasio1 Objeto Gimnasio
+     * @param idReserva ID de la reserva
+     */
     public static void deleteReserva(Gimnasio gimnasio1, int idReserva) {
         gimnasio1.listaReserva.removeIf(reserva -> reserva.getIdReserva() == idReserva);
     }

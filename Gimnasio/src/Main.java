@@ -18,8 +18,6 @@ public class Main {
         int finalizador = 1;
 
 
-
-
         do{
             System.out.println("BIENVENIDO AL GIMNASIO");
             System.out.println("Ingrese un numero del 1 al 9 para acceder a las distintas funcionalidades del gimnasio");
