@@ -2,6 +2,10 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Clase que representa a los Entrenadores del gimnasio
+ * @author Manuel Matías Quesada Riccieri
+ */
 public class Entrenador {
     private String nombreEntrenador;
     private String apellidoEntrenador;
@@ -14,6 +18,17 @@ public class Entrenador {
 
     static ArrayList<Integer> idsUsadas = new ArrayList<>();
 
+    /**
+     * Constructor del objeto Entrenador, recibe parametros
+     * @param nombreEntrenador Nombre del entrenador
+     * @param apellidoEntrenador Apellido del entrenador
+     * @param idEntrenador ID del entrenador
+     * @param especialidadEntrenador especialidad del Entrenador
+     * @param horarioInicio Horario de inicio del entrenador
+     * @param horarioFin Horario de fin del entrenador
+     * @param diasDisponibles Lista de dias en los que trabaja
+     * @param historialEntrenamientos Lista historial de entrenamientos del entrenador
+     */
     public Entrenador(String nombreEntrenador, String apellidoEntrenador, int idEntrenador, String especialidadEntrenador, String horarioInicio, String horarioFin, ArrayList<String> diasDisponibles, ArrayList<Clase> historialEntrenamientos) {
         this.nombreEntrenador = nombreEntrenador;
         this.apellidoEntrenador = apellidoEntrenador;
@@ -25,6 +40,11 @@ public class Entrenador {
         this.historialEntrenamientos = historialEntrenamientos;
     }
 
+    /**
+     * Función para registrar un nuevo entrenador, pide al usuario todos los parametros individuales y llama al constructor para generar una suscripción
+     * @param gimnasio1 Entra a la función para trabajar con sus listas asociadas
+     * @return Objeto entrenador inicializado
+     */
     public static Entrenador registrarEntrenador(Gimnasio gimnasio1) {
         Scanner sc1 = new Scanner(System.in);
         ArrayList<String> semana = new ArrayList<>();
@@ -47,6 +67,7 @@ public class Entrenador {
         System.out.println("Especialidad del Entrenador: ");
         String especialidadEntrenador1 = sc1.nextLine();
 
+        // Consulta si la ID del entrenador ya esta registrada
         boolean existe = false;
         System.out.println("ID del Entrenador: ");
         int idEntrenador = sc1.nextInt();
@@ -63,6 +84,7 @@ public class Entrenador {
             }
         } while (existe);
 
+        // Chequea que el horario de entrada este en el formato correcto
         System.out.println("Horario de entrada: ");
         String horarioEntrada1 = sc1.nextLine();
         do {
@@ -77,6 +99,7 @@ public class Entrenador {
             }
         } while (horarioEntrada1.length() != 4);
 
+        // Chequea que el horario de salida este en el formato correcto
         System.out.println("Horario de salida: ");
         String horarioSalida1 = sc1.nextLine();
         do {
@@ -88,6 +111,7 @@ public class Entrenador {
             }
         } while (horarioSalida1.length() != 4);
 
+        // Recorre una lista con todos los dias de la semana. Al tipear 'y' se añade a la lista de dias del entrenador, al tipear 'n' no se añade
         System.out.println("Por dia de la semana, indique 'y' para los dias en donde el entrenador si participa:");
         for (String dia : semana) {
             System.out.println(nombreEntrenador1 + " trabaja el " + dia + "?");
@@ -110,16 +134,18 @@ public class Entrenador {
             } while ((opcion != 'y'));
         }
 
-
+        // Constructor de entrenador, añade ID a lista de IDs usadas
         Entrenador entrendador1 = new Entrenador(nombreEntrenador1, apellidoEntrenador1, idEntrenador, especialidadEntrenador1, horarioEntrada1, horarioSalida1, diasDisp, new ArrayList<>());
         idsUsadas.add(idEntrenador);
 
         gimnasio1.listaEntrenadores.add(entrendador1);
         return entrendador1;
-    }
+    };
 
-    ;
-
+    /**
+     * Función que imprime todos los parametros del objeto Entrenador
+     * @param entrenador Objeto Entrenador
+     */
     public static void imprimirEntrenador(Entrenador entrenador) {
         System.out.println("Nombre: " + entrenador.getNombreEntrenador());
         System.out.println("Apellido: " + entrenador.getApellidoEntrenador());
@@ -143,6 +169,12 @@ public class Entrenador {
         System.out.println();
     }
 
+    /**
+     * Función para buscar un Objeto Entrenador en una lista de Entrenadores
+     * @param gimnasio Lista de entrenadores
+     * @param idEntrenador ID del entrenador a buscar
+     * @return Objeto Entrenador si encuentra en equipo, null en caso contrario
+     */
     public static Entrenador searchEntrenadorInList(ArrayList<Entrenador> gimnasio, int idEntrenador) {
         for (Entrenador entrenador : gimnasio) {
             if (entrenador.getIdEntrenador() == idEntrenador) {
@@ -152,10 +184,20 @@ public class Entrenador {
         return null;
     }
 
+    /**
+     * Función que busca al objeto Entrenador a partir de ID en la lista de Entrenadores del gimnasio para eliminarlo
+     * @param gimnasio1 Entra a la función para trabajar con la lista asociada a entrenadores
+     * @param idEntrenador ID del entrenador
+     */
     public static void deleteEntrenador(Gimnasio gimnasio1, int idEntrenador) {
         gimnasio1.listaEntrenadores.removeIf(entrenador -> entrenador.getIdEntrenador() == idEntrenador);
     }
 
+    /**
+     * Consulta si el entrenador ya existe en el gimnasio a partir de su ID
+     * @param gimnasio1 Entra a la función para consultar la lista asociada a entrenadores
+     * @return Retorna la ID en caso de encontrarla, 0 en caso de no encontrar la ID y no querer continuar con la operación
+     */
     public static Integer askEntrenadorId(Gimnasio gimnasio1) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Ingrese el ID del entrenador: ");
@@ -177,6 +219,11 @@ public class Entrenador {
         return 0;
     }
 
+    /**
+     * Función a la que dado un String en formato HHMM, devuelve un nuevo String en formato HH:MM para representar horario
+     * @param numero String de la hora en formato HHMM
+     * @return String de la hora en formato HH:MM
+     */
     public static String formatearHora(String numero) {
         String numeroStr = numero;
 

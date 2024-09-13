@@ -166,12 +166,14 @@ public class Reserva {
 
         int idMiembro = reservaBorrar.getMiembroReserva().getIdMiembro();
 
+        // Elimina al miembro de la reserva su clase correspondiente y actualiza la información
         ArrayList<Clase> listaClase = new ArrayList<>();
         listaClase = gimnasio.getListaClases();
         for (Clase clase : listaClase) {
             clase.listaMiembros.removeIf(miembro -> miembro.getIdMiembro() == idMiembro);
         }
 
+        // Elimina el ID de la reserva y vuelve a añadirla clase a la lista de clases del gimnasio
         int finalIdReserva = idReserva;
         idsUsadas.removeIf(e -> e == finalIdReserva);
         gimnasio.setListaClases(listaClase);
@@ -224,26 +226,50 @@ public class Reserva {
         gimnasio1.listaReserva.removeIf(reserva -> reserva.getIdReserva() == idReserva);
     }
 
+    /**
+     * Getter ID de la reserva
+     * @return ID de la reserva
+     */
     public int getIdReserva() {
         return idReserva;
     }
 
+    /**
+     * Setter ID de la reserva
+     * @param idReserva Ingresa al ID de la reserva para settearla en el objeto Reserva
+     */
     public void setIdReserva(int idReserva) {
         this.idReserva = idReserva;
     }
 
+    /**
+     * Getter del objeto Miembro
+     * @return Objeto Miembro
+     */
     public Miembro getMiembroReserva() {
         return miembroReserva;
     }
 
+    /**
+     * Setter del objeto Miembro
+     * @param miembroReserva Ingresa objeto Miembro para settearlo en el objeto Reserva
+     */
     public void setMiembroReserva(Miembro miembroReserva) {
         this.miembroReserva = miembroReserva;
     }
 
+    /**
+     * Getter del objeto Clase
+     * @return Objeto Clase
+     */
     public Clase getClaseReserva() {
         return claseReserva;
     }
 
+    /**
+     * Setter del objeto Clase
+     * @param claseReserva Ingresa objeto Clase para settearlo en el objeto Reserva
+     */
     public void setClaseReserva(Clase claseReserva) {
         this.claseReserva = claseReserva;
     }

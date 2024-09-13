@@ -3,6 +3,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Clase que representa a las clases del gimnasio
+ */
 public class Clase {
     private int idClase;
     private String nombreClase;
@@ -14,6 +17,16 @@ public class Clase {
 
     static ArrayList<Integer> idsUsadas = new ArrayList<>();
 
+    /**
+     * Constructor de objeto Clase, recibe parametros
+     * @param idClase ID de la clase
+     * @param nombreClase Nombre de la clase
+     * @param capacidadMiembros Capacidad de miembros de la clase
+     * @param horarioClase Horario de la clase
+     * @param fechaClase Fecha de la clase
+     * @param entrenadorClase Objeto Entrenador representando al entrenador asociado a la clase
+     * @param listaMiembros Lista de miembros
+     */
     public Clase(int idClase, String nombreClase, int capacidadMiembros, String horarioClase, String fechaClase, Entrenador entrenadorClase, ArrayList<Miembro> listaMiembros) {
         this.idClase = idClase;
         this.nombreClase = nombreClase;
@@ -24,6 +37,11 @@ public class Clase {
         this.listaMiembros = listaMiembros;
     }
 
+    /**
+     * Función para registrar una nueva clase, pide al usuario todos los parametros individuales y llama al constructor para generar un nuevo miembro
+     * @param gimnasio1 Entra a la función para trabajar con sus listas asociadas
+     * @return Objeto clase inicializado
+     */
     public static Clase programarClase(Gimnasio gimnasio1){
         Scanner sc = new Scanner(System.in);
 
@@ -64,7 +82,6 @@ public class Clase {
                 break;
             }
         } while (horarioClase.length() != 4);
-        sc.nextLine();
 
         // Tipeo de la fecha de la clase, chequea que el formato sea el adecuado
         System.out.println("Ingrese la fecha de la clase: ");
@@ -124,6 +141,12 @@ public class Clase {
         return clase1;
     }
 
+    /**
+     * Función para buscar un Objeto Clase en una lista de clases
+     * @param gimnasio Lista de clases
+     * @param idClase ID de la clase a biscar
+     * @return Objeto clase si se encuentra en la lista, null en caso contrario
+     */
     public static Clase searchClaseInList(ArrayList<Clase> gimnasio, int idClase){
         // A partir de una ID dada, recorre el ArrayList donde se encuentran las clases registradas en el gimnasio, la devuelve. En caso contrario retorna un null
         for (Clase clase : gimnasio){
@@ -133,6 +156,10 @@ public class Clase {
         } return null;
     }
 
+    /**
+     * Función que da por terminada la clase, actualizando las reservas y eliminando la clase de la lista de gimnasio
+     * @param gimnasio Entra a la función para trabajar con la lista asociada a Clases, Areas y Reservas
+     */
     public static void cumplirClase(Gimnasio gimnasio) {
         Scanner sc = new Scanner(System.in);
 
@@ -168,6 +195,10 @@ public class Clase {
 
     }
 
+    /**
+     * Función para cancelar una clase, actualiza las listas correspondientes
+     * @param gimnasio Entra a la función para trabajar con sus listas asociadas
+     */
     public static void cancelarClase(Gimnasio gimnasio) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Ingrese el ID de la clase que desea cancelar:");
@@ -208,6 +239,10 @@ public class Clase {
         idsUsadas.removeIf(e -> e == finalIdClase);
     }
 
+    /**
+     * Función para imprimir todos los parametros del objeto Clase
+     * @param clase Objeto Clase
+     */
     public static void imprimirClase(Clase clase){
         int numMiembro = 1;
         System.out.println("Nombre de la clase: "+clase.getNombreClase());
@@ -230,6 +265,11 @@ public class Clase {
         }
     }
 
+    /**
+     * Función que busca al objeto Clase a partir de ID en la lista de Clases del gimnasio para eliminarlo
+     * @param gimnasio1 Entra a la función para trabajar con la lista asociada a clases
+     * @param idClase ID de la clase
+     */
     public static void deleteClase(Gimnasio gimnasio1, int idClase){
         gimnasio1.listaClases.removeIf(clase -> clase.getIdClase() == idClase);
     }

@@ -2,6 +2,10 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Clase que representa al gimnasio y métodos asociados
+ * @author Manuel Matías Quesada Riccieri
+ */
 public class Gimnasio {
     private String nombreGimnasio;
     private String direccionGimnasio;
@@ -15,6 +19,20 @@ public class Gimnasio {
     public ArrayList<Equipo> listaEquipos;
     public ArrayList<Reserva> listaReserva;
 
+    /**
+     * Constructor de gimnasio, recibe parametros
+     * @param nombreGimnasio Nombre del gimnasio
+     * @param direccionGimnasio Dirección del gimnasio
+     * @param horaApertura Hora de apertura del gimnasio
+     * @param horaCierre Hora de cierre del gimnasio
+     * @param telefonoGimnasio Telefono del gimnasio
+     * @param listaMiembros Lista de miembros del gimnasio
+     * @param listaEntrenadores Lista de entrenadores del gimnasio
+     * @param listaClases Lista de clases del gimnasio
+     * @param listaAreas Lista de áreas del gimnasio
+     * @param listaEquipos Lista de equipos del gimnasio
+     * @param listaReserva Lista de reservas del gimnasio
+     */
     public Gimnasio(String nombreGimnasio, String direccionGimnasio, String horaApertura, String horaCierre, String telefonoGimnasio, ArrayList<Miembro> listaMiembros, ArrayList<Entrenador> listaEntrenadores, ArrayList<Clase> listaClases, ArrayList<Area> listaAreas, ArrayList<Equipo> listaEquipos, ArrayList<Reserva> listaReserva) {
         this.nombreGimnasio = nombreGimnasio;
         this.direccionGimnasio = direccionGimnasio;
@@ -29,6 +47,10 @@ public class Gimnasio {
         this.listaReserva = listaReserva;
     }
 
+    /**
+     * Imprime todos los Miembros de la lista de miembros del gimnasio
+     * @param gimnasio1 Entra a la función para trabajar con sus listas asociadas
+     */
     public static void obtenerListaMiembros(Gimnasio gimnasio1){
         int nummiembro = 1;
 
@@ -40,6 +62,10 @@ public class Gimnasio {
         }
     }
 
+    /**
+     * Imprime todos los Entrenadores de la lista de entrenadores del gimnasio
+     * @param gimnasio1 Entra a la función para trabajar con sus listas asociadas
+     */
     public static void obtenerListaEmpleados(Gimnasio gimnasio1){
         int numentr = 1;
 
@@ -51,6 +77,10 @@ public class Gimnasio {
         }
     }
 
+    /**
+     * Imprime todas las áreas de la lista de áreas del gimnasio
+     * @param gimnasio1 Entra a la función para trabajar con sus listas asociadas
+     */
     public static void obtenerListaArea(Gimnasio gimnasio1){
         int numentr = 1;
 
@@ -62,6 +92,10 @@ public class Gimnasio {
         }
     }
 
+    /**
+     * Imprime todas las reservas de la lista de reservas del gimnasio
+     * @param gimnasio1 Entra a la función para trabajar con sus listas asociadas
+     */
     public static void obtenerListaReservas(Gimnasio gimnasio1){
         int numentr = 1;
 
@@ -73,6 +107,10 @@ public class Gimnasio {
         }
     }
 
+    /**
+     * Imprime todos los equipos de la lista de equipos del gimnasio
+     * @param gimnasio1 Entra a la función para trabajar con sus listas asociadas
+     */
     public static void obtenerListaEquipos(Gimnasio gimnasio1){
         int numentr = 1;
 
@@ -84,6 +122,10 @@ public class Gimnasio {
         }
     }
 
+    /**
+     * Imprime todas las clases de la lista de clases del gimnasio
+     * @param gimnasio1 Entra a la función para trabajar con sus listas asociadas
+     */
     public static void obtenerListaClases(Gimnasio gimnasio1){
         int numentr = 1;
 
@@ -95,6 +137,10 @@ public class Gimnasio {
         }
     }
 
+    /**
+     * Consulta que es llamada cada vez que falla el ingreso de un dato, pregunta si se quiere terminar con el ingreso de parametros.
+     * @return True si se desea terminar con la operación, False en caso contrario.
+     */
     public static boolean consultaOperacion() {
         Scanner sc = new Scanner(System.in);
 
@@ -120,6 +166,10 @@ public class Gimnasio {
         return false;
     }
 
+    /**
+     * Imprime todos los parametros del gimnasio exceptuando listas
+     * @param gimnasio Gimnasio para acceder a parametros
+     */
     public static void imprimirGimnasio(Gimnasio gimnasio){
         System.out.println("Nombre del gimnasio:" + gimnasio.getNombreGimnasio());
         System.out.println("Dirección del gimnasio: " + gimnasio.getDireccionGimnasio());
@@ -128,7 +178,6 @@ public class Gimnasio {
         System.out.println("Telefono del gimnasio: "+gimnasio.getTelefonoGimnasio());
         System.out.println();
     }
-
 
     public String getNombreGimnasio() {
         return nombreGimnasio;

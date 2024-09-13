@@ -2,6 +2,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
+/**
+ * Clase que representa a los miembros
+ * @author Manuel Matías Quesada Riccieri
+ */
 public class Miembro {
     private String nombreMiembro;
     private String apellidoMiembro;
@@ -16,6 +20,19 @@ public class Miembro {
 
     static ArrayList<Integer> idsUsadas = new ArrayList<>();
 
+    /**
+     * Constructor de miembro, recibe parametros
+     * @param nombreMiembro Nombre del miembro
+     * @param apellidoMiembro Apellido del miembro
+     * @param idMiembro ID del miembro
+     * @param nroDocumento Número de documento del miembro
+     * @param email Email del miembro
+     * @param fechaNacimiento Fecha de nacimiento del miembro
+     * @param fechaInscripcion Fecha de inscripcion del miembro
+     * @param tipoMembresia Tipo de membresia del miembro
+     * @param estadoSuscripcion Estado de suscripción del miembro, objeto Suscripción
+     * @param condicion Condicion del miembro
+     */
     public Miembro(String nombreMiembro, String apellidoMiembro, int idMiembro, int nroDocumento, String email, String fechaNacimiento, String fechaInscripcion, String tipoMembresia, Suscripcion estadoSuscripcion, String condicion) {
         this.nombreMiembro = nombreMiembro;
         this.apellidoMiembro = apellidoMiembro;
@@ -29,6 +46,11 @@ public class Miembro {
         this.condicion = condicion;
     }
 
+    /**
+     * Función para registrar a un nuevo miembro, pide al usuario todos los parametros individuales y llama al constructor para generar un nuevo miembro
+     * @param gimnasio1 Entra a la función para trabajar con sus listas asociadas
+     * @return Objeto miembro inicializado
+     */
     public static Miembro registrarMiembro(Gimnasio gimnasio1) {
         Scanner sc = new Scanner(System.in);
 
@@ -78,10 +100,14 @@ public class Miembro {
 
         gimnasio1.listaMiembros.add(miembro1);
         return miembro1;
-    }
+    };
 
-    ;
-
+    /**
+     * Función para actualizar determinado dato seleccionado por el usuario, actualiza al miembro en sus respectivas listas
+     * @param miembro1 Miembro al que se le editará algun elemento
+     * @param gimnasio1 Entra a la función para trabajar con sus listas asociadas
+     * @return Objeto miembro actualizado
+     */
     public static Miembro actualizarInformacion(Miembro miembro1, Gimnasio gimnasio1) {
         Scanner sc1 = new Scanner(System.in);
         int opcion = 0;
@@ -156,6 +182,10 @@ public class Miembro {
         return miembro1;
     }
 
+    /**
+     * Función que imprime todos los parametros del objeto Miembro
+     * @param miembro1 Objeto miembro
+     */
     public static void imprimirMiembro(Miembro miembro1) {
         System.out.println("Nombre: " + miembro1.getNombreMiembro());
         System.out.println("Apellido: " + miembro1.getApellidoMiembro());
@@ -168,8 +198,6 @@ public class Miembro {
         } else {
             System.out.println("Estado de suscripción: Sin pagar");
         }
-
-        System.out.println("Estado de la suscipcion: ");
         System.out.println("Condicion: " + miembro1.getCondicion());
         System.out.println("Nro de Documento: " + miembro1.getNroDocumento());
         System.out.println("Fecha de Nacimiento: " + formatearFecha(miembro1.getFechaNacimiento()));
@@ -178,6 +206,12 @@ public class Miembro {
         System.out.println();
     }
 
+    /**
+     * Función para buscar un Objeto Miembro en una lista de Miembros
+     * @param gimnasio Lista de Miembros
+     * @param idMiembro ID del miembro a buscar
+     * @return Objeto Miembro si se encuentra en la lista, null en caso contrario
+     */
     public static Miembro searchMiembroInList(ArrayList<Miembro> gimnasio, int idMiembro) {
         for (Miembro miembro : gimnasio) {
             if (miembro.getIdMiembro() == idMiembro) {
@@ -187,6 +221,11 @@ public class Miembro {
         return null;
     }
 
+    /**
+     * Consulta si el miembro ya existe en el gimnasio a partir de su ID
+     * @param gimnasio1 Entra a la función para consultar la lista asociada a miembros
+     * @return Retorna la ID en caso de encontrarla, 0 en caso de no encontrar la ID y no querer continuar con la operación
+     */
     public static Integer askMiembroId(Gimnasio gimnasio1){
         Scanner sc = new Scanner(System.in);
         System.out.println("Ingrese el ID del miembro: ");
@@ -206,6 +245,11 @@ public class Miembro {
         return 0;
     }
 
+    /**
+     * Entra un String en formato DDMMAAAA para devolver un String en formato DD/MM/AAAA para la fecha
+     * @param numeroStr String de fecha
+     * @return String de fecha corregido
+     */
     public static String formatearFecha(String numeroStr) {
 
         String dia = numeroStr.substring(0, 2);
@@ -215,6 +259,10 @@ public class Miembro {
         return dia + "/" + mes + "/" + anio;
     }
 
+    /**
+     * Función que consulta al usuario el dia, mes y año individualmente para construir una fecha correctamente, y devolver un String en el formato asignado
+     * @return Fecha en formato DDMMAAAA
+     */
     public static String getterFecha(){
         Scanner sc = new Scanner(System.in);
 
@@ -259,6 +307,12 @@ public class Miembro {
 
     }
 
+    /**
+     * Función auxiliar que dado un mes y un año, devuelve la cantidad de dias que posee dicho mes.
+     * @param year Parametro de año
+     * @param month Parametro de mes
+     * @return Dias del mes
+     */
     public static int obtenerDiasEnMes(int year, int month) {
         switch (month) {
             case 1: // Enero
@@ -281,6 +335,11 @@ public class Miembro {
         }
     }
 
+    /**
+     * Función que comprueba si un año es bisiesto
+     * @param year Parametro de año
+     * @return True si el año es bisiesto, False en caso contrario
+     */
     public static boolean esBisiesto(int year) {
         if (year % 4 == 0) {
             if (year % 100 == 0) {
@@ -292,82 +351,162 @@ public class Miembro {
         return false;
     }
 
+    /**
+     * Getter del nombre del miembro
+     * @return Nombre del miembro
+     */
     public String getNombreMiembro() {
         return nombreMiembro;
     }
 
+    /**
+     * Setter del nombre del miembro
+     * @param nombreMiembro Ingresa el nombre del miembro para settearlo al objeto miembro
+     */
     public void setNombreMiembro(String nombreMiembro) {
         this.nombreMiembro = nombreMiembro;
     }
 
+    /**
+     * Getter del apellido del miembro
+     * @return Apellido del miembro
+     */
     public String getApellidoMiembro() {
         return apellidoMiembro;
     }
 
+    /**
+     * Setter del apellido del miembro
+     * @param apellidoMiembro Ingresa el apellio del miembro para settearlo al objeto miembro
+     */
     public void setApellidoMiembro(String apellidoMiembro) {
         this.apellidoMiembro = apellidoMiembro;
     }
 
+    /**
+     * Getter de la ID del miembro
+     * @return ID del miembro
+     */
     public int getIdMiembro() {
         return idMiembro;
     }
 
+    /**
+     * Setter de la ID del miembro
+     * @param idMiembro Ingresa la ID del miembro para settearla al objeto miembro
+     */
     public void setIdMiembro(int idMiembro) {
         this.idMiembro = idMiembro;
     }
 
+    /**
+     * Getter del número de documento del miembro
+     * @return Número de documento
+     */
     public int getNroDocumento() {
         return nroDocumento;
     }
 
+    /**
+     * Setter del número de documento del miembro
+     * @param nroDocumento Ingresa el número de documento para settearlo al objeto miembro
+     */
     public void setNroDocumento(int nroDocumento) {
         this.nroDocumento = nroDocumento;
     }
 
+    /**
+     * Getter del email del miembro
+     * @return Email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Setter del email del miembro
+     * @param email Ingresa el email del miembro para settearlo al objeto miembro
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Getter de la fecha de nacimiento del miembro
+     * @return Fecha de nacimiento
+     */
     public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 
+    /**
+     * Setter de la fecha de nacimiento del miembro
+     * @param fechaNacimiento Ingresa la fecha de nacimiento para settearla al objeto miembro
+     */
     public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    /**
+     * Getter de la fecha de inscripción del miembro
+     * @return Fecha de inscripción
+     */
     public String getFechaInscripcion() {
         return fechaInscripcion;
     }
 
+    /**
+     * Setter de la fecha de inscripción del miembro
+     * @param fechaInscripcion Ingresa la fecha de inscripción para settearla al objeto miembro
+     */
     public void setFechaInscripcion(String fechaInscripcion) {
         this.fechaInscripcion = fechaInscripcion;
     }
 
+    /**
+     * Getter del tipo de membresia del miembro
+     * @return Tipo de membresía
+     */
     public String getTipoMembresia() {
         return tipoMembresia;
     }
 
+    /**
+     * Setter del tipo de membresia del miembro
+     * @param tipoMembresia Ingresa el tipo de membresia para settearlo al objeto miembro
+     */
     public void setTipoMembresia(String tipoMembresia) {
         this.tipoMembresia = tipoMembresia;
     }
 
+    /**
+     * Getter del estado de suscripción del miembro, Objeto Suscripción
+     * @return Objeto Suscripción
+     */
     public Suscripcion getEstadoSuscripcion() {
         return estadoSuscripcion;
     }
 
+    /**
+     * Setter del estado de Suscripción
+     * @param estadoSuscripcion Ingresa el objeto Suscripción para settearlo al objeto miembro
+     */
     public void setEstadoSuscripcion(Suscripcion estadoSuscripcion) {
         this.estadoSuscripcion = estadoSuscripcion;
     }
 
+    /**
+     * Getter de la condición del miembro
+     * @return Condición del miembro
+     */
     public String getCondicion() {
         return condicion;
     }
 
+    /**
+     * Setter de la condición del miembro
+     * @param condicion Ingresa la condición para settearla al objeto miembro
+     */
     public void setCondicion(String condicion) {
         this.condicion = condicion;
     }

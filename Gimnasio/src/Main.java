@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Gimnasio gimnasio1 = new Gimnasio("Coca Gaston", "Rodriguez Pena", "1030", "2230", "1231231123", new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        Gimnasio gimnasio1 = new Gimnasio("Musculo Man", "Rodriguez Pena", "1030", "2230", "1231231123", new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         Scanner sc = new Scanner(System.in);
         int opcion = 0;
         int opcion1 = 0;
